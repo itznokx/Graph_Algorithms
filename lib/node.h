@@ -4,7 +4,6 @@
 #include <stdio.h>
 
 #define nullptr NULL
-
 typedef struct listnode_t{
 	struct node* actual;
 	struct listnode_t* next;
@@ -25,6 +24,8 @@ listnode* get_adj (node*);
 void print_adj (node*);
 
 char* get_label (node*);
+
+int get_value (node*);
 
 int insert_neighbour(node*,node*);
 
