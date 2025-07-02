@@ -37,15 +37,15 @@ void print_node_label (node*); //done
 
 void print_node_value (node*); //done
 
+node* get_neighbour_by_value (node*,TYPE_VAL);
+
+node* get_neighbour_by_label (node*,char*);
+
 int insert_neighbour(node*,node*);
 
 int remove_neighbour_by_value(node*,TYPE_VAL);
 
 int remove_neighbour_by_label(node*,char*);
-
-node* get_neighbour_by_value (node*,TYPE_VAL);
-
-node* get_neighbour_by_label (node*,char*);
 
 int change_index (node*,int);
 

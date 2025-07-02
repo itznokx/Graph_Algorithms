@@ -67,3 +67,14 @@ void print_node_value (node* n){
     }
 	return;
 }
+
+node* get_neighbour_by_value (node* n,TYPE_VAL val){
+	if (n == NULL || n->adj == NULL)
+		return NULL;
+	listnode* current = n->adj;
+	while (current != NULL){
+		if (current->actual->val == val)
+			return current->actual;
+	}
+	return NULL;
+}
