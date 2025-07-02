@@ -1,24 +1,28 @@
+#ifndef NODE_H
+#define NODE_H
 #include <stdlib.h>
 #include <stdio.h>
+
 #define nullptr NULL
 
 typedef struct listnode_t{
 	struct node* actual;
-	struct listnode* next;
+	struct listnode_t* next;
 }listnode;
 
-typedef struct node_t
+typedef struct node
 {
 	int val;
 	char* label;
-	struct listnode* adj;
+	listnode* adj;
 }node;
+
 
 node* new_node (int,char*);
 
 listnode* get_adj (node*);
 
-void print_adj (listnode*);
+void print_adj (node*);
 
 char* get_label (node*);
 
@@ -37,3 +41,5 @@ int change_index (node*,int);
 int change_label (node*,char*);
 
 int free_adj (node*);
+
+#endif
