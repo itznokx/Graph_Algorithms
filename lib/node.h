@@ -1,9 +1,13 @@
 #ifndef NODE_H
 #define NODE_H
+
 #include <stdlib.h>
 #include <stdio.h>
 
 #define nullptr NULL
+
+#define TYPE_T int // char or int type
+
 typedef struct listnode_t{
 	struct node* actual;
 	struct listnode_t* next;
@@ -11,13 +15,15 @@ typedef struct listnode_t{
 
 typedef struct node
 {
-	int val;
+	TYPE_T val;
 	char* label;
 	listnode* adj;
 }node;
 
 
 node* new_node (int,char*);
+
+int check_type (TYPE_T var);
 
 listnode* get_adj (node*);
 
@@ -26,6 +32,10 @@ void print_adj (node*);
 char* get_label (node*);
 
 int get_value (node*);
+
+void print_node_label (node*);
+
+void print_node_value (node*);
 
 int insert_neighbour(node*,node*);
 
