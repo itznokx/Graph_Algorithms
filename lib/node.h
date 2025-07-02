@@ -6,7 +6,7 @@
 
 #define nullptr NULL
 
-#define TYPE_T int // char or int type
+#define TYPE_VAL int // char or int type
 
 typedef struct listnode_t{
 	struct node* actual;
@@ -15,35 +15,35 @@ typedef struct listnode_t{
 
 typedef struct node
 {
-	TYPE_T val;
+	TYPE_VAL val;
 	char* label;
 	listnode* adj;
 }node;
 
 
-node* new_node (int,char*);
+node* new_node (int,char*); //done
 
-int check_type (TYPE_T var);
+int check_type (TYPE_VAL var); //done
 
-listnode* get_adj (node*);
+listnode* get_adj (node*); //done
 
-void print_adj (node*);
+void print_adj (node*); //done
 
-char* get_label (node*);
+char* get_label (node*); //done
 
-int get_value (node*);
+TYPE_VAL get_value (node*); // done
 
-void print_node_label (node*);
+void print_node_label (node*); //done
 
-void print_node_value (node*);
+void print_node_value (node*); //done
 
 int insert_neighbour(node*,node*);
 
-int remove_neighbour_by_value(node*,int);
+int remove_neighbour_by_value(node*,TYPE_VAL);
 
 int remove_neighbour_by_label(node*,char*);
 
-node* get_neighbour_by_value (node*,int);
+node* get_neighbour_by_value (node*,TYPE_VAL);
 
 node* get_neighbour_by_label (node*,char*);
 

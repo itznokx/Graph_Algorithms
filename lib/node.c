@@ -2,14 +2,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-node* new_node(TYPE_T _val, char* _label) {
+node* new_node(TYPE_VAL _val, char* _label) {
     node* aux = malloc(sizeof(node));
     aux->val = _val;
     aux->label = _label;
     aux->adj = NULL;
     return aux;
 }
-int check_type (TYPE_T var){
+int check_type (TYPE_VAL var){
 	switch(sizeof(var)){
 		case sizeof(int):
 			return 1;
@@ -43,4 +43,27 @@ void print_node_adj(node* n) {
         current = current->next;
     }
     printf("\n");
+}
+
+char* get_label (node* n){
+	return n->label;
+}
+
+TYPE_VAL get_val (node* n){
+	return n->val;
+}
+void print_node_label (node* n){
+	printf("Label:%s\n",n->label);
+}
+
+void print_node_value (node* n){
+	int type = check_type (n->val);
+	if (type == 1)
+    	printf("Value: %d\n",n->val);
+    if (type == 0)
+    	printf("Value: %c\n",n->val);
+    else{
+    	printf("Invalid node value type.\n");
+    }
+	return;
 }
