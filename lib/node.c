@@ -78,3 +78,23 @@ node* get_neighbour_by_value (node* n,TYPE_VAL val){
 	}
 	return NULL;
 }
+int insert_neighbour (node* n,node* k){
+	if (get_neighbour_by_value(n,k->val) == NULL){
+		if (n->adj == NULL){
+			listnode* aux = malloc(sizeof(listnode));
+			aux->actual = k;
+			aux->next = NULL;
+
+		}
+		else{
+			listnode* current = n->adj;
+			while (current->next != NULL){
+				current = current->next;
+			}
+			current->next->actual = k;
+			current->next->next = NULL;
+		}
+		return 1;
+	}
+	return 0;
+}
