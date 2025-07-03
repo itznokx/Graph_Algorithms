@@ -98,3 +98,6 @@ int insert_neighbour (node* n,node* k){
 	}
 	return 0;
 }
+int remove_neighbour_by_value (node* n,TYPE_VAL k){
+	
+}
