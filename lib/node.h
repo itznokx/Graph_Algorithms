@@ -21,7 +21,7 @@ typedef struct node
 }node;
 
 
-node* new_node (int,char*); //done
+node* new_node (TYPE_VAL,char*); //done
 
 int check_type (TYPE_VAL var); //done
 
@@ -47,7 +47,7 @@ int remove_neighbour_by_value(node*,TYPE_VAL);
 
 int remove_neighbour_by_label(node*,char*);
 
-int change_index (node*,int);
+int change_index (node*,TYPE_VAL);
 
 int change_label (node*,char*);
 
