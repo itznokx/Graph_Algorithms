@@ -94,10 +94,45 @@ int insert_neighbour (node* n,node* k){
 			current->next->actual = k;
 			current->next->next = NULL;
 		}
-		return 1;
+		return 0;
 	}
-	return 0;
+	return 1;
 }
 int remove_neighbour_by_value (node* n,TYPE_VAL k){
-	
+	if (n->adj  == NULL)
+		return 0;
+	if (n->adj->next == NULL){
+		if (n->adj->actual->val == k){
+			free(n->adj);
+			n->adj = NULL;
+			return 0;
+		}
+		return 1;
+	}
+	else{
+		listnode* current = n->adj;
+		while (current->next != NULL){
+			if (current->next->actual == k){
+				listnode* aux = current->next;
+				current->next = current->next->next;
+				free(aux);
+				return 0;
+			}
+			current = current->next;
+		}
+		return 1;
+	}
+	return 1;
+}
+int remove_neighbour_by_label (node* n,char* l){
+	if (n->adj  == NULL)
+			return 0;
+	if (n->adj->next == NULL){
+		if (n->adj->actual->label == l){
+			free(n->adj);
+			n->adj = NULL;
+			return 0;
+		}
+		return 1;
+	}
 }
