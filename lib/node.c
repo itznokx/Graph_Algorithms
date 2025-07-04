@@ -157,3 +157,15 @@ void change_label (node* n,char* l){
 	n->label = malloc(size_new_label * sizeof(char));
 	n->label = strcpy(n->label,l);
 }
+int free_adj (node* n){
+	if (n->adj == NULL)
+		return 1;
+	while (n->adj != NULL){
+		listnode* current = n->adj;
+		while (current->next != NULL){
+			current = current->next;
+		}
+		free(current);
+	}
+	return 0;
+}
