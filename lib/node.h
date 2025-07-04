@@ -33,13 +33,13 @@ char* get_label (node*); //done
 
 TYPE_VAL get_value (node*); // done
 
-void print_node_label (node*); //done
+void print_node_label (node*); // done
 
-void print_node_value (node*); //done
+void print_node_value (node*); // done
 
-node* get_neighbour_by_value (node*,TYPE_VAL);
+node* get_neighbour_by_value (node*,TYPE_VAL); // done
 
-node* get_neighbour_by_label (node*,char*);
+node* get_neighbour_by_label (node*,char*); // done
 
 int insert_neighbour(node*,node*);
 
