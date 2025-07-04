@@ -1,7 +1,7 @@
 #include "node.h"
 #include <stdlib.h>
 #include <stdio.h>
-
+#include <string.h>
 node* new_node(TYPE_VAL _val, char* _label) {
     node* aux = malloc(sizeof(node));
     aux->val = _val;
@@ -135,4 +135,14 @@ int remove_neighbour_by_label (node* n,char* l){
 		}
 		return 1;
 	}
+	else {
+		listnode* current = n->adj;
+		while (current->next !=null){
+			if ( strcmp (current->next->actual->label,l ){
+				listnode* aux = current->next;
+				current->
+			}
+		}
+	}
 }
+
