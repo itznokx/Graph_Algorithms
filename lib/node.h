@@ -27,7 +27,7 @@ int check_type (TYPE_VAL var); //done
 
 listnode* get_adj (node*); //done
 
-void print_adj (node*); //done
+void print_node_adj (node*); //done
 
 char* get_label (node*); //done
 
