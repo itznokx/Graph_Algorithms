@@ -112,7 +112,7 @@ int remove_neighbour_by_value (node* n,TYPE_VAL k){
 	else{
 		listnode* current = n->adj;
 		while (current->next != NULL){
-			if (current->next->actual == k){
+			if (current->next->actual->val == k){
 				listnode* aux = current->next;
 				current->next = current->next->next;
 				free(aux);
