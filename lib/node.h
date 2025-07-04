@@ -47,9 +47,9 @@ int remove_neighbour_by_value(node*,TYPE_VAL); // done
 
 int remove_neighbour_by_label(node*,char*);
 
-int change_index (node*,TYPE_VAL);
+void change_index (node*,TYPE_VAL);
 
-int change_label (node*,char*);
+void change_label (node*,char*);
 
 int free_adj (node*);
 
