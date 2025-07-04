@@ -45,12 +45,12 @@ int insert_neighbour(node*,node*); // done
 
 int remove_neighbour_by_value(node*,TYPE_VAL); // done
 
-int remove_neighbour_by_label(node*,char*);
+int remove_neighbour_by_label(node*,char*); // done
 
-void change_index (node*,TYPE_VAL);
+void change_index (node*,TYPE_VAL); // done
 
-void change_label (node*,char*);
+void change_label (node*,char*); // done
 
-int free_adj (node*);
+int free_adj (node*); // done
 
 #endif
