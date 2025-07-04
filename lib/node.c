@@ -137,17 +137,23 @@ int remove_neighbour_by_label (node* n,char* l){
 	}
 	else {
 		listnode* current = n->adj;
-		while (current->next !=null){
-			if ( strcmp (current->next->actual->label,l ){
+		while (current->next != NULL){
+			if (strcmp(current->next->actual->label,l)){
 				listnode* aux = current->next;
 				current->next = current->next->next;
 				free(aux);
-				return 0
+				return 0;
 			}
 		}
 	}
 	return 1;
 }
 void change_index (node* n,TYPE_VAL v){
-	
+	n->val = v;
+}
+void change_label (node* n,char* l){
+	n->label = NULL;
+	size_t size_new_label = strlen(l);
+	n->label = malloc(size_new_label * sizeof(char));
+	n->label = strcpy(n->label,l);
 }
