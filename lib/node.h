@@ -41,9 +41,9 @@ node* get_neighbour_by_value (node*,TYPE_VAL); // done
 
 node* get_neighbour_by_label (node*,char*); // done
 
-int insert_neighbour(node*,node*);
+int insert_neighbour(node*,node*); // done
 
-int remove_neighbour_by_value(node*,TYPE_VAL);
+int remove_neighbour_by_value(node*,TYPE_VAL); // done
 
 int remove_neighbour_by_label(node*,char*);
 
