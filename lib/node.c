@@ -140,9 +140,14 @@ int remove_neighbour_by_label (node* n,char* l){
 		while (current->next !=null){
 			if ( strcmp (current->next->actual->label,l ){
 				listnode* aux = current->next;
-				current->
+				current->next = current->next->next;
+				free(aux);
+				return 0
 			}
 		}
 	}
+	return 1;
 }
-
+void change_index (node* n,TYPE_VAL v){
+	
+}
