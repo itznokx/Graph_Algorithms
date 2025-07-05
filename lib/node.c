@@ -32,6 +32,7 @@ void print_node_adj(node* n) {
     listnode* current = n->adj;
     while (current != NULL) {
     	int type = check_type(current->actual->val);
+		printf("size_t = %i",type);
     	if (type == 1)
         	printf("(%d, %s) ", current->actual->val, current->actual->label);
         if (type == 0)
@@ -75,27 +76,36 @@ node* get_neighbour_by_value (node* n,TYPE_VAL val){
 	while (current != NULL){
 		if (current->actual->val == val)
 			return current->actual;
+		current = current->next;
 	}
 	return NULL;
 }
 int insert_neighbour (node* n,node* k){
 	if (get_neighbour_by_value(n,k->val) == NULL){
 		if (n->adj == NULL){
+			printf("Here1\n");
 			listnode* aux = malloc(sizeof(listnode));
 			aux->actual = k;
 			aux->next = NULL;
-
+			n->adj = aux;
+			return 0;
 		}
 		else{
-			listnode* current = n->adj;
+			listnode* current = malloc(sizeof(listnode));
+			current = n->adj;
 			while (current->next != NULL){
 				current = current->next;
 			}
+			current->next  = malloc(sizeof(listnode));
+			current->next->actual = malloc(sizeof(node));
+			printf("Here2\n");
 			current->next->actual = k;
 			current->next->next = NULL;
+			printf("Inserted node (%s)\n",k->label);
+			return 0;
 		}
-		return 0;
 	}
+	printf("Fail to insert node.\n");
 	return 1;
 }
 int remove_neighbour_by_value (node* n,TYPE_VAL k){
