@@ -9,16 +9,6 @@ node* new_node(TYPE_VAL _val, char* _label) {
     aux->adj = NULL;
     return aux;
 }
-int check_type (TYPE_VAL var){
-	switch(sizeof(var)){
-		case 4:
-			return 1;
-		case 1:
-			return 0;
-		default:
-			return -1;
-	}
-}
 listnode* get_adj(node* node_ptr) {
     return node_ptr->adj;
 }
