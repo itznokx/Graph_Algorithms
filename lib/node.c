@@ -22,7 +22,6 @@ void print_node_adj(node* n) {
    current = n->adj;
    while (current != NULL) {
    	size_t type = sizeof(current->actual->val); 
-		printf("size_t = %i\n",type);
 		switch(type){
 			case sizeof(int):
         		printf("Node: (%d, %s)\n", current->actual->val, current->actual->label);
