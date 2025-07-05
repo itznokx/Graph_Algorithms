@@ -165,7 +165,8 @@ int free_adj (node* n){
 	if (n->adj == NULL)
 		return 1;
 	while (n->adj != NULL){
-		listnode* current = n->adj;
+		listnode* current = malloc(sizeof(listnode)); 
+		current = n->adj;
 		while (current->next != NULL){
 			current = current->next;
 		}
