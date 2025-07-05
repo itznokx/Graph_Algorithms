@@ -28,7 +28,7 @@ void print_node_adj(node* n) {
         		printf("Node: (%d, %s)\n", current->actual->val, current->actual->label);
 				break;
 			case sizeof(char):
-        		printf("(%c, %s)\n", current->actual->val, current->actual->label);
+        		printf("Node: (%c, %s)\n", current->actual->val, current->actual->label);
 				break;
 			default:
        		printf("Invalid node value type.\n");
@@ -51,15 +51,20 @@ void print_node_label (node* n){
 }
 
 void print_node_value (node* n){
-	int type = check_type (n->val);
-	if (type == 1)
-    	printf("Value: %d\n",n->val);
-    if (type == 0)
-    	printf("Value: %c\n",n->val);
-    else{
-    	printf("Invalid node value type.\n");
-    }
-	return;
+	size_t type = sizeof(n->val); 
+	printf("size_t = %i\n",type);
+	switch(type){
+		case sizeof(int):
+			printf("Node: (%d, %s)\n", n->val,n->label);
+			break;
+		case sizeof(char):
+			printf("Node: (%c, %s)\n", n->val,n->label);
+			break;
+		default:
+			printf("Invalid node value type.\n");
+			return;
+	}
+
 }
 
 node* get_neighbour_by_value (node* n,TYPE_VAL val){
@@ -128,7 +133,7 @@ int remove_neighbour_by_label (node* n,char* l){
 	if (n->adj  == NULL)
 			return 0;
 	if (n->adj->next == NULL){
-		if (n->adj->actual->label == l){
+		if (strcmp(n->adj->actual->label,l)){
 			free(n->adj);
 			n->adj = NULL;
 			return 0;
