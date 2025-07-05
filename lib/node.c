@@ -4,16 +4,16 @@
 #include <string.h>
 node* new_node(TYPE_VAL _val, char* _label) {
     node* aux = malloc(sizeof(node));
-    aux->val = _val;
+    aux->val = (TYPE_VAL)_val;
     aux->label = _label;
     aux->adj = NULL;
     return aux;
 }
 int check_type (TYPE_VAL var){
 	switch(sizeof(var)){
-		case sizeof(int):
+		case 4:
 			return 1;
-		case sizeof(char):
+		case 1:
 			return 0;
 		default:
 			return -1;
@@ -24,24 +24,27 @@ listnode* get_adj(node* node_ptr) {
 }
 
 void print_node_adj(node* n) {
-    if (n == NULL || n->adj == NULL) {
+	if (n == NULL || n->adj == NULL) {
         printf("Empty neighborhood.\n");
         return;
-    }
-
-    listnode* current = n->adj;
-    while (current != NULL) {
-    	int type = check_type(current->actual->val);
-		printf("size_t = %i",type);
-    	if (type == 1)
-        	printf("(%d, %s) ", current->actual->val, current->actual->label);
-        if (type == 0)
-        	printf("(%c, %s) ", current->actual->val, current->actual->label);
-        else{
-        	printf("Invalid node value type.\n");
-        	return;
-        }
-        current = current->next;
+   }
+	listnode* current = malloc(sizeof(listnode));
+   current = n->adj;
+   while (current != NULL) {
+   	size_t type = sizeof(current->actual->val); 
+		printf("size_t = %i\n",type);
+		switch(type){
+			case sizeof(int):
+        		printf("Node: (%d, %s)\n", current->actual->val, current->actual->label);
+				break;
+			case sizeof(char):
+        		printf("(%c, %s)\n", current->actual->val, current->actual->label);
+				break;
+			default:
+       		printf("Invalid node value type.\n");
+        		return;
+      }
+      current = current->next;
     }
     printf("\n");
 }
@@ -83,12 +86,10 @@ node* get_neighbour_by_value (node* n,TYPE_VAL val){
 int insert_neighbour (node* n,node* k){
 	if (get_neighbour_by_value(n,k->val) == NULL){
 		if (n->adj == NULL){
-			printf("Here1\n");
 			listnode* aux = malloc(sizeof(listnode));
 			aux->actual = k;
 			aux->next = NULL;
 			n->adj = aux;
-			return 0;
 		}
 		else{
 			listnode* current = malloc(sizeof(listnode));
@@ -98,12 +99,11 @@ int insert_neighbour (node* n,node* k){
 			}
 			current->next  = malloc(sizeof(listnode));
 			current->next->actual = malloc(sizeof(node));
-			printf("Here2\n");
 			current->next->actual = k;
 			current->next->next = NULL;
-			printf("Inserted node (%s)\n",k->label);
-			return 0;
 		}
+		printf("Inserted node (%s)\n",k->label);
+		return 0;
 	}
 	printf("Fail to insert node.\n");
 	return 1;
