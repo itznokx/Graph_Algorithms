@@ -96,7 +96,7 @@ int insert_neighbour (node* n,node* k){
 			current->next->actual = k;
 			current->next->next = NULL;
 		}
-		printf("Inserted node (%s)\n",k->label);
+		printf("Inserted node (%s) in neighbourhood of (%s)\n",k->label,n->label);
 		return 0;
 	}
 	printf("Fail to insert node.\n");
