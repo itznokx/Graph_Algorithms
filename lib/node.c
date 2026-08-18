@@ -57,6 +57,7 @@ node* get_neighbour_by_value (node* n,TYPE_VAL val){
 	}
 	return NULL;
 }
+
 int insert_neighbour (node* n,node* k){
 	if (get_neighbour_by_value(n,k->val) == NULL){
 		if (n->adj == NULL){
@@ -147,11 +148,10 @@ int free_adj (node* n){
 	while (n->adj != NULL){
 		listnode* current = malloc(sizeof(listnode)); 
 		current = n->adj;
-		while (current->next != NULL){
-			current = current->next;
-		}
+		n->adj = current->next;
 		free(current);
 	}
+	
 	return 0;
 }
 void print_node_data (node* n){
