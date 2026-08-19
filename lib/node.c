@@ -68,14 +68,9 @@ int insert_neighbour (node* n,node* k){
 		}
 		else{
 			listnode* current = malloc(sizeof(listnode));
-			current = n->adj;
-			while (current->next != NULL){
-				current = current->next;
-			}
-			current->next  = malloc(sizeof(listnode));
-			current->next->actual = malloc(sizeof(node));
-			current->next->actual = k;
-			current->next->next = NULL;
+			current->actual = k;
+			current->next = n->adj;
+			n->adj = current;	
 		}
 		printf("Inserted node (%s) in neighbourhood of (%s)\n",k->data,n->data);
 		return 0;
