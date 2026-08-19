@@ -18,8 +18,7 @@ void print_node_adj(node* n) {
         printf("Empty neighborhood.\n");
         return;
    }
-	listnode* current = malloc(sizeof(listnode));
-   current = n->adj;
+	listnode* current = n->adj;
    while (current != NULL) {
    	size_t type = sizeof(current->actual->val); 
 		switch(type){
@@ -141,8 +140,7 @@ int free_adj (node* n){
 	if (n->adj == NULL)
 	return 1;
 	while (n->adj != NULL){
-		listnode* current = malloc(sizeof(listnode)); 
-		current = n->adj;
+		listnode* current = n->adj;
 		n->adj = current->next;
 		free(current);
 	}
