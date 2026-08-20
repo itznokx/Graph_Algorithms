@@ -1,5 +1,5 @@
 #include "node.h"
-
+#include <stdio.h>
 int main (int narg,char* argc[]){
 	node* a = new_node(0,"A");
 	node* b = new_node(1,"B");
