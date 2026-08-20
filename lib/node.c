@@ -57,6 +57,21 @@ node* get_neighbour_by_value (node* n,TYPE_VAL val){
 	return NULL;
 }
 
+node* get_neighbour_by_data (node* n,char* str){
+	if (n->adj == NULL) 
+		return NULL;
+	listnode* current = n->adj;
+	while (current != NULL){
+		if (current->actual != NULL 		&&
+			current->actual->val != NULL 	&&
+			strcmp(current->actual->val,str)==0){
+				return current->actual;
+			}
+		current = current->next;
+	}
+	return NULL;
+}
+
 int insert_neighbour (node* n,node* k){
 	if (get_neighbour_by_value(n,k->val) == NULL){
 		if (n->adj == NULL){
