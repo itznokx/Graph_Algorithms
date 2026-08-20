@@ -1,11 +1,6 @@
 #ifndef NODE_H
 #define NODE_H
-
-#include <stdlib.h>
-#include <stdio.h>
-
 #define nullptr NULL
-
 #define TYPE_VAL int // char or int type
 
 typedef struct listnode_t{
