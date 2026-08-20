@@ -41,7 +41,7 @@ char* get_data (node* n){
 	return n->data;
 }
 
-TYPE_VAL get_val (node* n){
+TYPE_VAL get_value (node* n){
 	return n->val;
 }
 
@@ -78,53 +78,53 @@ int insert_neighbour (node* n,node* k){
 	return 1;
 }
 int remove_neighbour_by_value (node* n,TYPE_VAL k){
-	if (n->adj  == NULL)
-	return 0;
-	if (n->adj->next == NULL){
-		if (n->adj->actual->val == k){
-			free(n->adj);
-			n->adj = NULL;
+	if (n==NULL || n->adj  == NULL)
+		return 1;
+	listnode* current = n->adj;
+	listnode* prev = nullptr;
+	while (current != NULL){
+		if (current->actual != NULL && current->actual->val == k){
+			if (prev == NULL) {
+				n->adj = n->adj->next;
+			}
+			else {
+				prev->next = current->next;
+			}
+			free (current);
 			return 0;
 		}
-		return 1;
+		prev = current;
+		current = current->next;
 	}
-	else{
-		listnode* current = n->adj;
-		while (current->next != NULL){
-			if (current->next->actual->val == k){
-				listnode* aux = current->next;
-				current->next = current->next->next;
-				free(aux);
-				return 0;
-			}
-			current = current->next;
-		}
-		return 1;
-	}
+	free(prev);
+	free(current);
 	return 1;
 }
 int remove_neighbour_by_data (node* n,char* l){
+	if (l == NULL)
+		return 1;
 	if (n->adj  == NULL)
-	return 0;
-	if (n->adj->next == NULL){
-		if (strcmp(n->adj->actual->data,l)){
-			free(n->adj);
-			n->adj = NULL;
+		return 1;
+	listnode* current = n->adj;
+	listnode* prev = NULL;
+	while (current != NULL){
+		if (current->actual != NULL
+			&& current->actual->data != NULL 
+			&& (strcmp(current->actual->data,l)==0)){
+			if (prev==NULL) {
+				n->adj = n->adj->next;
+			}
+			else {
+				prev->next = current->next;
+			}
+			free(current);
 			return 0;
 		}
-		return 1;
+		prev = current;
+		current = current->next;
 	}
-	else {
-		listnode* current = n->adj;
-		while (current->next != NULL){
-			if (strcmp(current->next->actual->data,l)){
-				listnode* aux = current->next;
-				current->next = current->next->next;
-				free(aux);
-				return 0;
-			}
-		}
-	}
+	free(prev);
+	free(current);
 	return 1;
 }
 void change_index (node* n,TYPE_VAL v){
@@ -132,7 +132,7 @@ void change_index (node* n,TYPE_VAL v){
 }
 void change_data (node* n,char* l){
 	n->data = NULL;
-	size_t size_new_data = strlen(l);
+	size_t size_new_data = strlen(l)+1;
 	n->data = malloc(size_new_data * sizeof(char));
 	n->data = strcpy(n->data,l);
 }
@@ -153,7 +153,7 @@ void print_node_data (node* n){
 
 void print_node_value (node* n){
 	size_t type = sizeof(n->val); 
-	printf("size_t = %i\n",type);
+	printf("size_t = %lu\n",type);
 	switch(type){
 		case sizeof(int):
 			printf("Node: (%d, %s)\n", n->val,n->data);
