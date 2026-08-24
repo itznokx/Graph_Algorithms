@@ -41,9 +41,14 @@ char* get_data (node* n){
 	return n->data;
 }
 
+listnode* get_neighbourhood (node* n) {
+	return n->adj;
+}
+
 TYPE_VAL get_value (node* n){
 	return n->val;
 }
+
 
 node* get_neighbour_by_value (node* n,TYPE_VAL val){
 	if (n == NULL || n->adj == NULL)
@@ -92,6 +97,7 @@ int insert_neighbour (node* n,node* k){
 	printf("Fail to insert node.\n");
 	return 1;
 }
+
 int remove_neighbour_by_value (node* n,TYPE_VAL k){
 	if (n==NULL || n->adj  == NULL)
 		return 1;
@@ -115,6 +121,7 @@ int remove_neighbour_by_value (node* n,TYPE_VAL k){
 	free(current);
 	return 1;
 }
+
 int remove_neighbour_by_data (node* n,char* l){
 	if (l == NULL)
 		return 1;
@@ -126,6 +133,7 @@ int remove_neighbour_by_data (node* n,char* l){
 		if (current->actual != NULL
 			&& current->actual->data != NULL 
 			&& (strcmp(current->actual->data,l)==0)){
+			
 			if (prev==NULL) {
 				n->adj = n->adj->next;
 			}
@@ -145,12 +153,14 @@ int remove_neighbour_by_data (node* n,char* l){
 void change_index (node* n,TYPE_VAL v){
 	n->val = v;
 }
+
 void change_data (node* n,char* l){
 	n->data = NULL;
 	size_t size_new_data = strlen(l)+1;
 	n->data = malloc(size_new_data * sizeof(char));
 	n->data = strcpy(n->data,l);
 }
+
 int free_adj (node* n){
 	if (n->adj == NULL)
 	return 1;
@@ -162,6 +172,7 @@ int free_adj (node* n){
 	
 	return 0;
 }
+
 void print_node_data (node* n){
 	printf("data:%s\n",n->data);
 }
