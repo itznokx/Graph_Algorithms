@@ -140,7 +140,7 @@ int free_adj (node* n){
 		n->adj = current->next;
 		free(current);
 	}
-	
+
 	return 0;
 }
 
@@ -159,7 +159,6 @@ void print_node_value (node* n){
         char: printf("Node: (%c, %s)\n", n->val, n->data),
         default: printf("Invalid node value type.\n")
 	);
-
 }
 
 void print_node_adj(node* n) {
@@ -172,7 +171,7 @@ void print_node_adj(node* n) {
    	_Generic (
 		(n->val),
 		int:  printf("Node %d neighbourhood:\n", n->val),
-        char: printf("Node %s neighbourhood:\n", n->val)
+        char: printf("Node %c neighbourhood:\n", n->val)
 	);
 	while (current != NULL) {
 		print_node_value(current->actual);
