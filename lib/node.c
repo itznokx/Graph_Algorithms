@@ -6,45 +6,19 @@
 node* new_node(TYPE_VAL _val, char* _data) {
     node* aux = malloc(sizeof(node));
     aux->val = (TYPE_VAL)_val;
-    aux->data = _data;
+	size_t size_new_data = strlen(_data) * 2;
+	aux->data = malloc(size_new_data * sizeof(char));
+    aux->data = strcpy(aux->data,_data);
     aux->adj = NULL;
     return aux;
 }
 
 node* create_node(TYPE_VAL _val, char* _data) {
-    node* aux = malloc(sizeof(node));
-    aux->val = (TYPE_VAL)_val;
-    aux->data = _data;
-    aux->adj = NULL;
-    return aux;
+    return new_node(_val,_data);
 }
 
 listnode* get_adj(node* node_ptr) {
     return node_ptr->adj;
-}
-
-void print_node_adj(node* n) {
-	if (n == NULL || n->adj == NULL) {
-        printf("Empty neighborhood.\n");
-        return;
-   }
-	listnode* current = n->adj;
-   while (current != NULL) {
-   	size_t type = sizeof(current->actual->val); 
-		switch(type){
-			case sizeof(int):
-        		printf("Node: (%d, %s)\n", current->actual->val, current->actual->data);
-				break;
-			case sizeof(char):
-        		printf("Node: (%c, %s)\n", current->actual->val, current->actual->data);
-				break;
-			default:
-       		printf("Invalid node value type.\n");
-        		return;
-      }
-      current = current->next;
-    }
-    printf("\n");
 }
 
 char* get_data (node* n){
@@ -58,7 +32,6 @@ listnode* get_neighbourhood (node* n) {
 TYPE_VAL get_value (node* n){
 	return n->val;
 }
-
 
 node* get_neighbour_by_value (node* n,TYPE_VAL val){
 	if (n == NULL || n->adj == NULL)
@@ -89,18 +62,10 @@ node* get_neighbour_by_data (node* n,char* str){
 
 int insert_neighbour (node* n,node* k){
 	if (get_neighbour_by_value(n,k->val) == NULL){
-		if (n->adj == NULL){
-			listnode* aux = malloc(sizeof(listnode));
-			aux->actual = k;
-			aux->next = NULL;
-			n->adj = aux;
-		}
-		else{
-			listnode* current = malloc(sizeof(listnode));
-			current->actual = k;
-			current->next = n->adj;
-			n->adj = current;	
-		}
+		listnode* current = malloc(sizeof(listnode));
+		current->actual = k;
+		current->next = n->adj;
+		n->adj = current;
 		printf("Inserted node (%s) in neighbourhood of (%s)\n",k->data,n->data);
 		return 0;
 	}
@@ -127,8 +92,6 @@ int remove_neighbour_by_value (node* n,TYPE_VAL k){
 		prev = current;
 		current = current->next;
 	}
-	free(prev);
-	free(current);
 	return 1;
 }
 
@@ -155,9 +118,7 @@ int remove_neighbour_by_data (node* n,char* l){
 		}
 		prev = current;
 		current = current->next;
-	}
-	free(prev);
-	free(current);
+	}	
 	return 1;
 }
 void change_index (node* n,TYPE_VAL v){
@@ -165,7 +126,7 @@ void change_index (node* n,TYPE_VAL v){
 }
 
 void change_data (node* n,char* l){
-	n->data = NULL;
+	free(n->data);
 	size_t size_new_data = strlen(l)+1;
 	n->data = malloc(size_new_data * sizeof(char));
 	n->data = strcpy(n->data,l);
@@ -188,18 +149,34 @@ void print_node_data (node* n){
 }
 
 void print_node_value (node* n){
-	size_t type = sizeof(n->val); 
-	printf("size_t = %lu\n",type);
-	switch(type){
-		case sizeof(int):
-			printf("Node: (%d, %s)\n", n->val,n->data);
-			break;
-		case sizeof(char):
-			printf("Node: (%c, %s)\n", n->val,n->data);
-			break;
-		default:
-			printf("Invalid node value type.\n");
-			return;
+	if (n == NULL) {
+		printf("Node value is NULL.\n");
+		return;
+	}
+	_Generic (
+		(n->val),
+		int:  printf("Node: (%d, %s)\n", n->val, n->data),
+        char: printf("Node: (%c, %s)\n", n->val, n->data),
+        default: printf("Invalid node value type.\n")
+	);
+
+}
+
+void print_node_adj(node* n) {
+	if (n == NULL || n->adj == NULL) {
+		printf("Empty neighborhood.\n");
+		return;
 	}
 
+	listnode* current = n->adj;
+   	_Generic (
+		(n->val),
+		int:  printf("Node %d neighbourhood:\n", n->val),
+        char: printf("Node %s neighbourhood:\n", n->val)
+	);
+	while (current != NULL) {
+		print_node_value(current->actual);
+    	current = current->next;
+    }
+    printf("\n");
 }
