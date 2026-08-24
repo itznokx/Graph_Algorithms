@@ -3,6 +3,11 @@
 #define nullptr NULL
 #define TYPE_VAL int // char or int type
 
+enum VALUE_TYPE {
+	INTEGER,
+	STRING,	
+};
+
 typedef struct listnode_t{
 	struct node* actual;
 	struct listnode_t* next;
