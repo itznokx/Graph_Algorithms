@@ -12,11 +12,9 @@ int main (int narg,char* argc[]){
 	printf("Inserted c\n");
 	insert_neighbour(a,d);
 	printf("Inserted d\n");
-	printf("A neighbourhood\n");
 	print_node_adj(a);
 	insert_neighbour(e,c);
 	insert_neighbour(e,a);
-	printf("E neighbourhood\n");
 	print_node_adj(e);
 	free_adj(a);
 	free_adj(b);
