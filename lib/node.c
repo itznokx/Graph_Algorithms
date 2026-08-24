@@ -6,7 +6,7 @@
 node* new_node(TYPE_VAL _val, char* _data) {
     node* aux = malloc(sizeof(node));
     aux->val = (TYPE_VAL)_val;
-	size_t size_new_data = strlen(_data) * 2;
+	size_t size_new_data = strlen(_data)+1;
 	aux->data = malloc(size_new_data * sizeof(char));
     aux->data = strcpy(aux->data,_data);
     aux->adj = NULL;
