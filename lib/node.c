@@ -26,7 +26,7 @@ char* get_data (node* n){
 }
 
 listnode* get_neighbourhood (node* n) {
-	return n->adj;
+	return get_adj(n);
 }
 
 TYPE_VAL get_value (node* n){
