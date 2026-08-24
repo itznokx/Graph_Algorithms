@@ -46,7 +46,7 @@ node* get_neighbour_by_value (node* n,TYPE_VAL val){
 }
 // return first only
 node* get_neighbour_by_data (node* n,char* str){
-	if (n->adj == NULL) 
+	if (n->adj == NULL)
 		return NULL;
 	listnode* current = n->adj;
 	while (current != NULL){
@@ -104,9 +104,9 @@ int remove_neighbour_by_data (node* n,char* l){
 	listnode* prev = NULL;
 	while (current != NULL){
 		if (current->actual != NULL
-			&& current->actual->data != NULL 
+			&& current->actual->data != NULL
 			&& (strcmp(current->actual->data,l)==0)){
-			
+
 			if (prev==NULL) {
 				n->adj = n->adj->next;
 			}
@@ -118,7 +118,7 @@ int remove_neighbour_by_data (node* n,char* l){
 		}
 		prev = current;
 		current = current->next;
-	}	
+	}
 	return 1;
 }
 void change_index (node* n,TYPE_VAL v){
@@ -178,4 +178,9 @@ void print_node_adj(node* n) {
     	current = current->next;
     }
     printf("\n");
+}
+void destroy_node (node* _node){
+    free(_node->data);
+    free_adj(_node);
+    free(_node);
 }
