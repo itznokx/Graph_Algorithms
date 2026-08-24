@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+
 node* new_node(TYPE_VAL _val, char* _data) {
     node* aux = malloc(sizeof(node));
     aux->val = (TYPE_VAL)_val;
@@ -9,6 +10,15 @@ node* new_node(TYPE_VAL _val, char* _data) {
     aux->adj = NULL;
     return aux;
 }
+
+node* create_node(TYPE_VAL _val, char* _data) {
+    node* aux = malloc(sizeof(node));
+    aux->val = (TYPE_VAL)_val;
+    aux->data = _data;
+    aux->adj = NULL;
+    return aux;
+}
+
 listnode* get_adj(node* node_ptr) {
     return node_ptr->adj;
 }
@@ -61,15 +71,15 @@ node* get_neighbour_by_value (node* n,TYPE_VAL val){
 	}
 	return NULL;
 }
-
+// return first only
 node* get_neighbour_by_data (node* n,char* str){
 	if (n->adj == NULL) 
 		return NULL;
 	listnode* current = n->adj;
 	while (current != NULL){
 		if (current->actual != NULL 		&&
-			current->actual->val != NULL 	&&
-			strcmp(current->actual->val,str)==0){
+			current->actual->data != NULL 	&&
+			strcmp(current->actual->data,str)==0){
 				return current->actual;
 			}
 		current = current->next;
