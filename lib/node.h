@@ -3,9 +3,10 @@
 #define nullptr NULL
 #define TYPE_VAL int // char or int type
 
-enum VALUE_TYPE {
-	INTEGER,
-	STRING,	
+enum NODE_STATE {
+	UNDISCOVERED,
+	IN_PROCESSING,
+	FINISHED
 };
 
 typedef struct listnode_t{
@@ -18,6 +19,8 @@ typedef struct node
 	TYPE_VAL val;
 	char* data;
 	listnode* adj;
+	enum NODE_STATE state;
+	
 }node;
 
 
