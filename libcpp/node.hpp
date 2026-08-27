@@ -1,6 +1,7 @@
 #ifndef NODE_HPP
 #define NODE_HPP
 
+#include <cstring>
 #include <iostream>
 #include <vector>
 #include <string>
@@ -19,10 +20,10 @@ private:
     std::string data;
     std::vector<Node<T>*> adj;
     NodeState state;
-
+    Node* parent;
 public:
     Node(T _val, const std::string& _data)
-        : val(_val), data(_data), state(NodeState::UNDISCOVERED) {}
+        : val(_val), data(_data), state(NodeState::UNDISCOVERED, parent(nullptr)) {}
     ~Node() = default;
 
     const std::vector<Node<T>*>& get_adj() const { return adj; }
@@ -32,6 +33,26 @@ public:
     void set_state(NodeState s) { state = s; }
     void change_index(T v) { val = v; }
     void change_data(const std::string& l) { data = l; }
+    Node<T>* get_parent() { return parent;}
+    void set_parent(Node<T>* _parent) {this-> parent;}
+    bool compare_to_node_value (Node* _n){
+        if ( _n != NULL &&
+            _n->val != NULL &&
+            this->val != _n->val
+            ) {
+            return false;
+        }
+        return true;
+    }
+    bool compare_to_node_data (Node* _n){
+        if ( _n != NULL &&
+            _n->data != "" &&
+            this->data !=_n->data
+            ) {
+            return false;
+        }
+        return true;
+    }
     Node<T>* get_neighbour_by_value(T target_val) const {
         for (Node<T>* neighbor : adj) {
             if (neighbor->val == target_val) return neighbor;
@@ -103,6 +124,12 @@ public:
             neighbor->print_node_value();
         }
         std::cout << '\n';
+    }
+    Node<T>* clone () {
+        Node<T>* aux = new Node<T>(this->val,this->data);
+        aux->state = this->state;
+        aux->adj = this->adj;
+        return aux;
     }
 };
 #endif
