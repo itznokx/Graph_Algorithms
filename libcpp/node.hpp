@@ -6,19 +6,18 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include "edge.hpp"
 enum class NodeState {
     UNDISCOVERED,
     IN_PROCESSING,
     FINISHED
 };
-
-
 template <typename T>
 class Node {
 private:
     T val;
     std::string data;
-    std::vector<Node<T>*> adj;
+    std::vector<Edge<T>*> adj;
     NodeState state;
     Node* parent;
 public:
@@ -54,24 +53,30 @@ public:
         return true;
     }
     Node<T>* get_neighbour_by_value(T target_val) const {
-        for (Node<T>* neighbor : adj) {
-            if (neighbor->val == target_val) return neighbor;
+        for (Edge<T>* neighbor : adj) {
+            if (neighbor->target->get_value() == target_val) return neighbor->target;
         }
         return nullptr;
     }
     Node<T>* get_neighbour_by_data(const std::string& str) const {
-        for (Node<T>* neighbor : adj) {
-            if (neighbor->data == str) return neighbor;
+        for (Edge<T>* neighbor : adj) {
+            if (neighbor->target->get_data() == str) return neighbor->target;
         }
         return nullptr;
     }
 
-    bool insert_neighbour(Node<T>* k) {
+    bool insert_neighbour(Node<T>* k,float weight = 0) {
         if (!k) return false;
-
         if (get_neighbour_by_value(k->val) == nullptr) {
-            adj.push_back(k);
-            std::cout << "Inserted node (" << k->data << ") in neighbourhood of (" << data << ")\n";
+            Edge<T>* aux = new Edge<int>(this,k,weight);
+            adj.push_back(aux);
+            std::cout<< "Inserted node ("
+                     << k->data
+                     << ", w:"
+                     << weight
+                     << ") in neighbourhood of ("
+                     << data
+                     << ")\n";
             return true;
         }
         std::cout << "Fail to insert node.\n";
@@ -81,7 +86,7 @@ public:
     bool remove_neighbour_by_value(T k) {
         auto iterator = std::find_if(adj.begin(),
                             adj.end(),
-                            [k](Node<T>* n) { return n->val == k; }
+                            [k](Edge<T>* e) { return (e->target->get_value() == k); }
                             );
         if (iterator != adj.end()) {
             adj.erase(iterator);
@@ -93,7 +98,7 @@ public:
     bool remove_neighbour_by_data(const std::string& l) {
         auto iterator = std::find_if( adj.begin(),
                                 adj.end(),
-                                [&l](Node<T>* n) { return n->data == l; }
+                                [&l](Edge<T>* e) { return (e->target->get_data() == l); }
                                 );
         if (iterator != adj.end()) {
             adj.erase(iterator);
@@ -106,11 +111,17 @@ public:
         adj.clear();
     }
     void print_node_data() const {
-        std::cout << "data:" << data << '\n';
+        std::cout   << "data:"
+                    << this->get_data()
+                    << '\n';
     }
 
     void print_node_value() const {
-        std::cout << "Node: (" << val << ", " << data << ")\n";
+        std::cout   << "Node: ("
+                    << this->get_value()
+                    << ", "
+                    << this->get_data()
+                    << ")\n";
     }
 
     void print_node_adj() const {
@@ -119,9 +130,9 @@ public:
             return;
         }
 
-        std::cout << "Node " << val << " neighbourhood:\n";
-        for (Node<T>* neighbor : adj) {
-            neighbor->print_node_value();
+        std::cout << "Node " << this->val << " neighbourhood:\n";
+        for (const auto& neighbor : adj) {
+            neighbor->target->print_node_value();
         }
         std::cout << '\n';
     }
