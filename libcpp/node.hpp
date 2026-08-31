@@ -22,8 +22,11 @@ private:
     Node* parent;
 public:
     Node(T _val, const std::string& _data)
-        : val(_val), data(_data), state(NodeState::UNDISCOVERED, parent(nullptr)) {}
-    ~Node() = default;
+        : val(_val), data(_data), state(NodeState::UNDISCOVERED), parent(nullptr) {}
+    ~Node(){
+        delete(adj);
+        delete(parent);
+    };
 
     const std::vector<Node<T>*>& get_adj() const { return adj; }
     std::string get_data() const { return data; }
