@@ -13,8 +13,4 @@ node_test.out: .FORCE
 .FORCE:
 
 clean:
-<<<<<<< HEAD
-	rm -rf *.out
-=======
->>>>>>> 94dcf6c (fix(Makefile): fix identation in Makefile)
 	rm -rf *.o
