@@ -14,3 +14,4 @@ node_test.out: .FORCE
 
 clean:
 	rm -rf *.o
+	rm -rf libcpp/*.gch
