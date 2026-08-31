@@ -72,7 +72,11 @@ public:
         return nullptr;
     }
     bool insert_edge (Edge<T>* _edge) {
+        if (!_edge){
+            return false;
+        }
         adj.push_back(_edge);
+        return true;
     }
     bool insert_neighbour(Node<T>* k,float weight = 0) {
         if (!k) return false;
@@ -140,8 +144,11 @@ public:
         }
 
         std::cout << "Node " << this->val << " neighbourhood:\n";
+        int i = 0;
         for (const auto& neighbor : adj) {
+            std::cout << i << ": ";
             neighbor->target->print_node_value();
+            i++;
         }
         std::cout << '\n';
     }

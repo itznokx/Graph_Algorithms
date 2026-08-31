@@ -38,16 +38,16 @@ public:
     }
     void add_directed_edge (Node<T>* source_node, Node<T>* target_node, float weight = 0) {
         auto new_edge = std::make_unique<Edge<T>>(source_node,target_node,weight);
-        source_node->insert_edge(new_edge);
         edges.push_back(std::move(new_edge));
+        source_node->insert_edge(new_edge.get());
     }
     void add_undirected_edge (Node<T>* source_node, Node<T>* target_node, float weight = 0) {
         auto new_edge1 = std::make_unique<Edge<T>>(source_node,target_node,weight);
         auto new_edge2 = std::make_unique<Edge<T>>(target_node,source_node,weight);
         edges.push_back(std::move(new_edge1));
         edges.push_back(std::move(new_edge2));
-        source_node->insert_edge(new_edge1);
-        target_node->insert_edge(new_edge2);
+        source_node->insert_edge(new_edge1.get());
+        target_node->insert_edge(new_edge2.get());
     }
     void add_edge (Node<T>* source_node, Node<T>* target_node, float weight) {
         if (isDirected){
@@ -57,6 +57,12 @@ public:
             add_undirected_edge(source_node,target_node,weight);
         }
     }
-
-
+    void print_neighbourhood (Node<T>* node){
+        node->print_node_adj();
+    }
+    void print_all_neighbourhood(){
+        for (const auto& ptr : nodes) {
+            ptr.get()->print_node_adj();
+        }
+    }
 };
