@@ -16,18 +16,25 @@ private:
 public:
     Graph (bool directed = false ,bool weighted = true): isDirected(directed), isWeighted(weighted)
     {}
-    bool check_nodes (T val) {
+    Node<T>* get_node_by_value (T val) {
         for (const auto& iter : nodes) {
             if (iter != NULL && iter->get_value() == val){
-                return true;
+                return iter.get();
             }
         }
-        return false;
+        return nullptr;
     }
     Node<T>* add_node (T val, const std::string data) {
-        auto new_node = std::make_unique<Node<T>>(val, data);
-        nodes.push_back(std::move(new_node));
-        return new_node.get();
+        Node<T>* aux = get_node_by_value(val);
+        if (aux==nullptr){
+            auto new_node = std::make_unique<Node<T>>(val, data);
+            nodes.push_back(std::move(new_node));
+            return new_node.get();
+        }
+        else{
+            std::cout << "Node already created.\n";
+            return nullptr;
+        }
     }
     void add_directed_edge (Node<T>* source_node, Node<T>* target_node, float weight = 0) {
         auto new_edge = std::make_unique<Edge<T>>(source_node,target_node,weight);
