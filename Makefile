@@ -12,6 +12,11 @@ node_test.out: .FORCE
 	g++ node_test.cpp -o node_test.out
 .FORCE:
 
+graphtest.out: .FORCE
+	g++ graphtest.cpp -o graphtest.out
+
+graph: graphtest.out
+
 clean:
 	rm -rf *.o
 	rm -rf libcpp/*.gch
