@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef NODE_HPP
 #define NODE_HPP
 
@@ -24,7 +26,9 @@ public:
     Node(T _val, const std::string& _data)
         : val(_val), data(_data), state(NodeState::UNDISCOVERED), parent(nullptr) {}
     ~Node(){
-        delete(adj);
+        for (auto ptr : adj) {
+            delete ptr;
+        }
         delete(parent);
     };
 
@@ -67,7 +71,9 @@ public:
         }
         return nullptr;
     }
-
+    bool insert_edge (Edge<T>* _edge) {
+        adj.push_back(_edge);
+    }
     bool insert_neighbour(Node<T>* k,float weight = 0) {
         if (!k) return false;
         if (get_neighbour_by_value(k->val) == nullptr) {
