@@ -10,5 +10,6 @@ int main (void) {
     G->add_edge(nodeA, nodeC, 0);
     G->add_edge(nodeA, nodeD, 0);
     G->add_edge(nodeB, nodeD, 0);
+    G->print_all_neighbourhood();
     return 0;
 }
