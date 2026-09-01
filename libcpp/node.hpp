@@ -25,12 +25,7 @@ private:
 public:
     Node(T _val, const std::string& _data)
         : val(_val), data(_data), state(NodeState::UNDISCOVERED), parent(nullptr) {}
-    ~Node(){
-        for (auto ptr : adj) {
-            delete ptr;
-        }
-        delete(parent);
-    };
+    ~Node() = default;
 
     const std::vector<Node<T>*>& get_adj() const { return adj; }
     std::string get_data() const { return data; }

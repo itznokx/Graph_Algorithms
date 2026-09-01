@@ -28,8 +28,9 @@ public:
         Node<T>* aux = get_node_by_value(val);
         if (aux==nullptr){
             auto new_node = std::make_unique<Node<T>>(val, data);
+            Node<T>* ptr = new_node.get();
             nodes.push_back(std::move(new_node));
-            return new_node.get();
+            return ptr;
         }
         else{
             std::cout << "Node already created.\n";
@@ -38,16 +39,16 @@ public:
     }
     void add_directed_edge (Node<T>* source_node, Node<T>* target_node, float weight = 0) {
         auto new_edge = std::make_unique<Edge<T>>(source_node,target_node,weight);
-        edges.push_back(std::move(new_edge));
         source_node->insert_edge(new_edge.get());
+        edges.push_back(std::move(new_edge));
     }
     void add_undirected_edge (Node<T>* source_node, Node<T>* target_node, float weight = 0) {
         auto new_edge1 = std::make_unique<Edge<T>>(source_node,target_node,weight);
         auto new_edge2 = std::make_unique<Edge<T>>(target_node,source_node,weight);
-        edges.push_back(std::move(new_edge1));
-        edges.push_back(std::move(new_edge2));
         source_node->insert_edge(new_edge1.get());
         target_node->insert_edge(new_edge2.get());
+        edges.push_back(std::move(new_edge1));
+        edges.push_back(std::move(new_edge2));
     }
     void add_edge (Node<T>* source_node, Node<T>* target_node, float weight) {
         if (isDirected){
