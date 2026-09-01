@@ -35,7 +35,7 @@ public:
     void change_index(T v) { val = v; }
     void change_data(const std::string& l) { data = l; }
     Node<T>* get_parent() { return parent;}
-    void set_parent(Node<T>* _parent) {this-> parent;}
+    void set_parent(Node<T>* _parent) {this->parent = _parent;}
     bool compare_to_node_value (Node* _n){
         if ( _n != NULL &&
             _n->val != NULL &&
