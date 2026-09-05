@@ -22,9 +22,13 @@ private:
     std::vector<Edge<T>*> adj;
     NodeState state;
     Node* parent;
+    float x;
+    float y;
 public:
     Node(T _val, const std::string& _data)
-        : val(_val), data(_data), state(NodeState::UNDISCOVERED), parent(nullptr) {}
+        : val(_val), data(_data), state(NodeState::UNDISCOVERED), parent(nullptr),
+          x(0), y(0)
+        {}
     ~Node() = default;
 
     const std::vector<Node<T>*>& get_adj() const { return adj; }
@@ -36,6 +40,11 @@ public:
     void change_data(const std::string& l) { data = l; }
     Node<T>* get_parent() { return parent;}
     void set_parent(Node<T>* _parent) {this->parent = _parent;}
+    float get_x () {return this->x;}
+    float get_y () {return this->y;}
+    void set_x (float _x) {this->x = _x;}
+    void set_y (float _y) {this->x = _y;}
+
     bool compare_to_node_value (Node* _n){
         if ( _n != NULL &&
             _n->val != NULL &&
