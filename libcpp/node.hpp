@@ -25,9 +25,9 @@ private:
     float x;
     float y;
 public:
-    Node(T _val, const std::string& _data)
+    Node(T _val, const std::string& _data,float _x = 0, float _y = 0)
         : val(_val), data(_data), state(NodeState::UNDISCOVERED), parent(nullptr),
-          x(0), y(0)
+          x(_x), y(_y)
         {}
     ~Node() = default;
 
@@ -74,6 +74,9 @@ public:
             if (neighbor->target->get_data() == str) return neighbor->target;
         }
         return nullptr;
+    }
+    std::vector<Edge<T>*> get_full_neighbour () {
+        return adj;
     }
     bool insert_edge (Edge<T>* _edge) {
         if (!_edge){

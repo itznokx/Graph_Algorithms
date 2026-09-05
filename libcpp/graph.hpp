@@ -24,10 +24,10 @@ public:
         }
         return nullptr;
     }
-    Node<T>* add_node (T val, const std::string data) {
+    Node<T>* add_node (T val, const std::string data,float _x = 0.0f, float _y = 0.0f) {
         Node<T>* aux = get_node_by_value(val);
         if (aux==nullptr){
-            auto new_node = std::make_unique<Node<T>>(val, data);
+            auto new_node = std::make_unique<Node<T>>(val, data,_x,_y);
             Node<T>* ptr = new_node.get();
             nodes.push_back(std::move(new_node));
             return ptr;
@@ -58,12 +58,16 @@ public:
             add_undirected_edge(source_node,target_node,weight);
         }
     }
-    void print_neighbourhood (Node<T>* node){
-        node->print_node_adj();
+    int get_nodes_size() {
+        return nodes.size();
     }
-    void print_all_neighbourhood(){
-        for (const auto& ptr : nodes) {
-            ptr.get()->print_node_adj();
-        }
+    int get_edges_size() {
+        return edges.size();
+    }
+    std::vector<std::unique_ptr<Node<T>>> get_nodes () {
+        return this->nodes;
+    }
+    std::vector<std::unique_ptr<Edge<T>>> get_edges () {
+        return this->edges;
     }
 };
