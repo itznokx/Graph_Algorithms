@@ -24,6 +24,8 @@ private:
     Node* parent;
     float x;
     float y;
+    int init_time;
+    int finish_time;
 public:
     Node(T _val, const std::string& _data,float _x = 0, float _y = 0)
         : val(_val), data(_data), state(NodeState::UNDISCOVERED), parent(nullptr),
@@ -42,6 +44,12 @@ public:
     void set_parent(Node<T>* _parent) {this->parent = _parent;}
     float get_x () {return this->x;}
     float get_y () {return this->y;}
+    int get_init_time() { return this->init_time ;}
+    int get_finish_time() { return this->finish_time;}
+
+    void set_init_time(int x) {this->init_time = x;}
+    void set_finish_time(int x) {this->finish_time = x;}
+
     void set_x (float _x) {this->x = _x;}
     void set_y (float _y) {this->x = _y;}
 
