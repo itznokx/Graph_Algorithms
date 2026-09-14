@@ -1,7 +1,9 @@
+#include <cstdio>
 #include <iostream>
 #include <string>
 #include <memory>
 #include <algorithm>
+#include <queue>
 #include <vector>
 #include "edge.hpp"
 #include "node.hpp"
@@ -13,6 +15,8 @@ private:
     bool isWeighted;
     std::vector<std::unique_ptr<Node<T>>> nodes;
     std::vector<std::unique_ptr<Edge<T>>> edges;
+    std::vector<T>topological_order;
+    int time;
 public:
     Graph (bool directed = false ,bool weighted = true): isDirected(directed), isWeighted(weighted)
     {}
@@ -70,4 +74,24 @@ public:
     std::vector<std::unique_ptr<Edge<T>>> get_edges () {
         return this->edges;
     }
+    void BFS (Node<T>* start,bool verbose = false) {
+        for (auto node : nodes) {
+            node->set_state(NodeState::UNDISCOVERED);
+        }
+        std::queue<Node<T>*> nodeQueue;
+        start->set_state(NodeState::IN_PROCESSING);
+        nodeQueue.push(start);
+        while (!nodeQueue.empty()){
+            Node<T>* actual = nodeQueue.pop();
+        if (verbose) std::cout << "Discovered: " << actual.get_value << "\n";
+            for (Edge<T>* edge : actual->get_full_neighbour()){
+                if (edge->target->get_state() == NodeState::UNDISCOVERED) {
+                    nodeQueue.push(edge->target);
+                    edge->target->set_state(NodeState::IN_PROCESSING);
+                }
+            }
+            actual->set_state(NodeState::FINISHED);
+        }
+    }
+
 };
