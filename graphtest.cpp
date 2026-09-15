@@ -20,11 +20,20 @@ int main (void) {
     Node<int>* nodeB = G->add_node(1,"B",100.0f,130.0f);
     Node<int>* nodeC = G->add_node(2,"C",100.0f,70.0f);
     Node<int>* nodeD = G->add_node(3,"D",200.0f,80.0f);
+    Node<int>* nodeE = G->add_node(4,"E",100.0f,100.0f);
+    Node<int>* nodeF = G->add_node(5,"F",100.0f,130.0f);
+    Node<int>* nodeG = G->add_node(6,"G",100.0f,70.0f);
+    Node<int>* nodeH = G->add_node(7,"H",200.0f,80.0f);
     G->add_edge(nodeA, nodeB, 0);
-    G->add_edge(nodeA, nodeC, 0);
-    G->add_edge(nodeA, nodeD, 0);
-    G->add_edge(nodeB, nodeD, 0);
-    size_t nodes_size = G->get_nodes_size();
+    G->add_edge(nodeB, nodeC, 0);
+    G->add_edge(nodeC, nodeD, 0);
+    G->add_edge(nodeD, nodeE, 0);
+    G->add_edge(nodeE, nodeE, 0);
+    G->add_edge(nodeA, nodeG, 0);
+    G->DFS(nodeA,true);
+    G->print_topological_order();
+    /*
+     *
     InitWindow( defaultArgs->screenWidth,
                 defaultArgs->screenHeight,
                 defaultArgs->title);
@@ -51,5 +60,6 @@ int main (void) {
         EndDrawing();
     }
     CloseWindow();
+     */
     return 0;
 }

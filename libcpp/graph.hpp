@@ -1,3 +1,4 @@
+#include <cstddef>
 #include <cstdio>
 #include <iostream>
 #include <string>
@@ -15,7 +16,7 @@ private:
     bool isWeighted;
     std::vector<std::unique_ptr<Node<T>>> nodes;
     std::vector<std::unique_ptr<Edge<T>>> edges;
-    std::vector<T>topological_order;
+    std::vector<Node<T>*>topological_order;
     std::vector<T>DFS_auxiliar;
     int time;
 public:
@@ -135,6 +136,39 @@ public:
         this->time = this->time + 1;
         actual->set_finish_time(this->time);
         if (verbose) std::cout << "Finished: " << actual->get_value() << " in time " << this->time << "\n";
-
+    }
+    Node<T>* get_node_with_max_finish_time (std::vector<Node<T>*> ignore_vector) {
+        Node<T>* max = nullptr;
+        for (const auto& node : this->nodes) {
+            Node<T>* aux = node.get();
+            auto iterator = std::find_if(
+                ignore_vector.begin(),
+                ignore_vector.end(),
+                [aux](Node<T>* comparator) { return comparator->get_value() == aux->get_value(); }
+            );
+            if (iterator == ignore_vector.end()) {
+                if (max == nullptr){max = aux;}
+                else {
+                    if (max->get_finish_time() < aux->get_finish_time())max = aux;
+                }
+            }
+        }
+        return max;
+    }
+    std::vector<Node<T>*> get_topological_order (bool verbose = false) {
+        if (topological_order.empty()) {this->DFS(nodes.at(0).get());}
+        for (int i=0;i<nodes.size();i++) {
+            Node<T>* aux = this->get_node_with_max_finish_time(topological_order);
+            if (verbose) std::cout << "Iter: " << i << " ,max finish time: " << aux->get_finish_time() << "\n";
+            topological_order.push_back(aux);
+        }
+        return topological_order;
+    }
+    void print_topological_order() {
+        if (topological_order.empty())get_topological_order(true);
+        std::cout << "Topological order: (Node)(FinishTime) " << nodes.size() <<"\n" ;
+        for (const auto& node : this->topological_order) {
+            std::cout << " Node(" << node->get_value() << "),(" << node->get_finish_time() << "), ";
+        }
     }
 };
