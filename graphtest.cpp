@@ -30,39 +30,5 @@ int main (void) {
     G->add_edge(nodeA, nodeG, 0);
     G->DFS(nodeA,true);
     G->print_topological_order();
-    /*
-    WindowArgs* defaultArgs = new WindowArgs(640,480,2,"test");
-    InitWindow( defaultArgs->screenWidth,
-                defaultArgs->screenHeight,
-                defaultArgs->title);
-    SetTargetFPS(defaultArgs->fps);
-    int color_iter = 0;
-    std::vector<Color> colors = {RED,BLUE,GREEN,YELLOW};
-    while (!WindowShouldClose()){
-        bool next_step = false;
-        color_iter = color_iter%colors.size();
-        BeginDrawing();
-            ClearBackground(WHITE);
-            for (size_t i = 0; i < G->get_nodes_size() ; i++) {
-                auto aux = G->get_node_by_value(i);
-                if (aux != nullptr){
-                    DrawCircle( aux->get_x(),
-                                aux->get_y(),
-                                5.0f,
-                                colors.at(color_iter));
-                    for (const auto& edge : aux->get_full_neighbour()) {
-                        DrawLine(
-                            aux->get_x(),aux->get_y(),
-                            edge->target->get_x(), edge->target->get_y(),
-                            BLACK
-                        );
-                    }
-                }
-            }
-        EndDrawing();
-        color_iter++;
-    }
-    CloseWindow();
-     */
     return 0;
 }
