@@ -1,5 +1,4 @@
 #include "libcpp/graph.hpp"
-#include <raylib.h>
 
 struct WindowArgs {
     int screenWidth;
