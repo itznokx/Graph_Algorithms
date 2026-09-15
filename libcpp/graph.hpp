@@ -119,8 +119,12 @@ public:
         if (actual == nullptr) return;
         this->time = this->time + 1;
         actual->set_state(NodeState::IN_PROCESSING);
-        if (verbose) std::cout << "Discovered: " << actual->get_value() << "\n";
-        std::erase(this->DFS_auxiliar,actual->get_value());
+        if (verbose) std::cout << "Discovered: " << actual->get_value() << " in time " << this->time << "\n";
+        for (int i = 0; i < DFS_auxiliar.size();i++){
+            if (DFS_auxiliar.at(i) == actual->get_value()){
+                DFS_auxiliar.erase(DFS_auxiliar.begin()+i);
+            }
+        }
         actual->set_init_time(this->time);
         for (Edge<T>* edge : actual->get_full_neighbour()){
             if (edge->target->get_state() == NodeState::UNDISCOVERED) {
@@ -130,5 +134,7 @@ public:
         }
         this->time = this->time + 1;
         actual->set_finish_time(this->time);
+        if (verbose) std::cout << "Finished: " << actual->get_value() << " in time " << this->time << "\n";
+
     }
 };
