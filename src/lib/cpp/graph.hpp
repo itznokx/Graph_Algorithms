@@ -1,3 +1,6 @@
+#ifndef GRAPHLIB_HPP
+#define GRAPHLIB_HPP
+
 #include <cstddef>
 #include <cstdio>
 #include <iostream>
@@ -172,3 +175,4 @@ public:
         }
     }
 };
+#endif
