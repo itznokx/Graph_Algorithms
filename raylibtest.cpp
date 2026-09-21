@@ -1,5 +1,5 @@
-#include "libcpp/graph.hpp"
 #include <raylib.h>
+#include <graph.hpp>
 #include <vector>
 
 struct WindowArgs {

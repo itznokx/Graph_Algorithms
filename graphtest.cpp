@@ -1,4 +1,4 @@
-#include "libcpp/graph.hpp"
+#include <graph.hpp>
 
 struct WindowArgs {
     int screenWidth;
