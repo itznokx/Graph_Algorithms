@@ -1,4 +1,4 @@
-#ifndef GRAPHLIB_HPP
+    #ifndef GRAPHLIB_HPP
 #define GRAPHLIB_HPP
 
 #include <cstddef>
@@ -124,7 +124,7 @@ public:
         this->time = this->time + 1;
         actual->set_state(NodeState::IN_PROCESSING);
         if (verbose) std::cout << "Discovered: " << actual->get_value() << " in time " << this->time << "\n";
-        for (int i = 0; i < DFS_auxiliar.size();i++){
+        for (int i = 0; i < (int)DFS_auxiliar.size();i++){
             if (DFS_auxiliar.at(i) == actual->get_value()){
                 DFS_auxiliar.erase(DFS_auxiliar.begin()+i);
             }
@@ -159,14 +159,16 @@ public:
         return max;
     }
     std::vector<Node<T>*> get_topological_order (bool verbose = false) {
-        if (topological_order.empty()) {this->DFS(nodes.at(0).get());}
-        for (int i=0;i<nodes.size();i++) {
+        if (!topological_order.empty()) {topological_order.clear();}
+        this->DFS(nodes.at(0).get());
+        for (int i=0;i<(int)nodes.size();i++) {
             Node<T>* aux = this->get_node_with_max_finish_time(topological_order);
             if (verbose) std::cout << "Iter: " << i << " ,max finish time: " << aux->get_finish_time() << "\n";
             topological_order.push_back(aux);
         }
         return topological_order;
     }
+    //print funcs
     void print_topological_order() {
         if (topological_order.empty())get_topological_order(true);
         std::cout << "Topological order: (Node)(FinishTime) " << nodes.size() <<"\n" ;
