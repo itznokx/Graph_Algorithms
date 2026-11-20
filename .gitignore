@@ -1,4 +1,8 @@
 *.o
 *.gch
 *.out
-visualizer-lib/
+build/
+output/
+visualizer-lib/*
+tests/
+legacy/
